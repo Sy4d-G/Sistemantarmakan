@@ -22,15 +22,13 @@ struct TitikPeta {
     string tipe;
 };
 
-// <<< STRUCT ITEMMENU DIPERBARUI >>>
 struct ItemMenu {
     int id;
     string nama;
     double harga;
     string kategori;
-    string emoticon; // Tambahan emoticon
+    string emoticon;
 };
-// <<< AKHIR STRUCT ITEMMENU DIPERBARUI >>>
 
 struct Restoran {
     int idTitik;
@@ -65,9 +63,7 @@ vector<TitikPeta> daftarTitikPeta;
 vector<vector<pair<int, double>>> daftarKoneksi;
 
 void bersihkanLayar() {
-    // Untuk Windows, coba juga system("cls"); jika \033[2J... tidak bekerja dengan baik
-    // Untuk Linux/macOS, coba juga system("clear");
-    cout << "\033[2J\033[1;1H"; // Ini adalah ANSI escape code, mungkin perlu pengaturan terminal
+    cout << "\033[2J\033[1;1H";
 }
 
 void animasiLoading(const string& pesan, int detik) {
@@ -138,7 +134,7 @@ void tampilkanPetaUntukPilihan() {
         }
         cout << " }" << endl;
     }
-     cout << "--------------------------------------" << endl;
+    cout << "--------------------------------------" << endl;
 }
 
 double hitungJarakTerpendek(int startNode, int endNode) {
@@ -187,12 +183,7 @@ string dapatkanPasswordTersembunyiWindows() {
     return password;
 }
 
-// <<< FUNGSI YANG DIPERBARUI >>>
 void isiMenu() {
-    // Emoticon: 🥘 (Padang), 🍔 (Burger), 🍜 (Mie), 🍗 (Ayam), ☕️ (Kopi)
-    // 🥤 (Minuman Gelas), 🧋 (Bubble Tea/Teh Botol), 🍟 (Kentang), 🍞 (Roti), 🍫 (Coklat)
-    // 🌶️ (Pedas), 🧊 (Es), 🧀 (Keju), 🍤 (Udang)
-    // Pastikan terminal Anda mendukung Unicode & font yang sesuai.
     daftarRestoran.push_back({0, "RM Padang", {
         {101, "Nasi Rendang", 25000, "Makanan", "🥘"},
         {102, "Nasi Ayam Pop", 23000, "Makanan", "🍗"},
@@ -204,25 +195,23 @@ void isiMenu() {
         {202, "French Fries", 15000, "Makanan", "🍟"},
         {203, "Coca Cola", 10000, "Minuman", "🥤"}
     }});
-     daftarRestoran.push_back({2, "Mie Gacoan", {
+    daftarRestoran.push_back({2, "Mie Gacoan", {
         {301, "Mie Gacoan", 12000, "Makanan", "🍜🌶️"},
         {302, "Udang Keju", 9000, "Makanan", "🍤🧀"},
         {303, "Es Gobak Sodor", 10000, "Minuman", "🍹🧊"}
     }});
-     daftarRestoran.push_back({3, "Ayam Sriwedari", {
+    daftarRestoran.push_back({3, "Ayam Sriwedari", {
         {401, "Paket Ayam Bakar", 28000, "Makanan", "🍗🔥"},
-        {402, "Tahu/Tempe", 3000, "Makanan", "🍲"}, // 🍲 (Pot of food) for generic side
+        {402, "Tahu/Tempe", 3000, "Makanan", "🍲"},
         {403, "Es Teh Manis", 6000, "Minuman", "🍹🧊"}
     }});
-     daftarRestoran.push_back({4, "Janji Jiwa", {
+    daftarRestoran.push_back({4, "Janji Jiwa", {
         {501, "Kopi Susu", 18000, "Minuman", "☕️"},
         {502, "Toast Coklat", 22000, "Makanan", "🍞🍫"},
         {503, "Matcha Latte", 24000, "Minuman", "🍵"},
         {504, "Kopi Sahabat", 13000, "Minuman", "☕️"}
     }});
 }
-// <<< AKHIR FUNGSI YANG DIPERBARUI >>>
-
 
 Restoran* cariRestoranById(int idTitik) {
     for (auto& resto : daftarRestoran) {
@@ -344,7 +333,6 @@ Restoran* pilihRestoran() {
     }
 }
 
-// <<< FUNGSI YANG DIPERBARUI >>>
 void pilihMenu(Restoran* restoTerpilih, Pesanan& pesananSaatIni) {
     int id_menu, jumlah;
     char tambahLagi;
@@ -353,7 +341,6 @@ void pilihMenu(Restoran* restoTerpilih, Pesanan& pesananSaatIni) {
         bersihkanLayar();
         cout << "--- Menu " << restoTerpilih->nama << " ---" << endl;
         for (const auto& item : restoTerpilih->menu) {
-            // Tampilkan emoticon bersama nama menu
             cout << item.id << ". " << item.emoticon << " " << item.nama << " - Rp " << item.harga
                       << " (" << item.kategori << ")" << endl;
         }
@@ -415,7 +402,7 @@ void pilihMenu(Restoran* restoTerpilih, Pesanan& pesananSaatIni) {
                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
                     catatanKhusus = "Pedas Level " + to_string(levelKepedasan);
                 }
-                // Kustomisasi untuk minuman di Ayam Sriwedari, Janji Jiwa, Mie Gacoan (untuk es)
+
                 if (item.kategori == "Minuman") {
                     if (restoTerpilih->nama == "Ayam Sriwedari" && item.nama == "Es Teh Manis") {
                         int opsiGula;
@@ -441,7 +428,6 @@ void pilihMenu(Restoran* restoTerpilih, Pesanan& pesananSaatIni) {
                         catatanKhusus = (opsiGula == 2) ? "Less Sugar" : "Regular";
                     }
 
-                    // Opsi Es Umum untuk minuman yang memenuhi syarat
                     if (restoTerpilih->nama == "Ayam Sriwedari" || restoTerpilih->nama == "Janji Jiwa" || restoTerpilih->nama == "Mie Gacoan") {
                          int opsiEs;
                          cout << "Pilih opsi es untuk " << item.nama << " (1: Regular Ice, 2: Less Ice): ";
@@ -455,7 +441,6 @@ void pilihMenu(Restoran* restoTerpilih, Pesanan& pesananSaatIni) {
                          catatanKhusus += (opsiEs == 2) ? "Less Ice" : "Regular Ice";
                     }
                 }
-
 
                 pesananSaatIni.daftarItem.emplace_back(item, jumlah, catatanKhusus);
                 pesananSaatIni.totalHarga += hargaItemSaatIni * jumlah;
@@ -503,8 +488,6 @@ void pilihMenu(Restoran* restoTerpilih, Pesanan& pesananSaatIni) {
         }
     }
 }
-// <<< AKHIR FUNGSI YANG DIPERBARUI >>>
-
 
 void gunakanVoucher(Pengguna* penggunaAktif, Pesanan& pesananSaatIni) {
      if (penggunaAktif->punyaVoucher) {
@@ -553,7 +536,6 @@ void simulasiPengantaran(double totalHargaAkhir, double jarak) {
     this_thread::sleep_for(chrono::seconds(3));
 }
 
-// <<< FUNGSI YANG DIPERBARUI >>>
 void prosesPesanan(Pengguna* penggunaAktif, Pesanan& pesananSaatIni) {
     bersihkanLayar();
     cout << "--- Rincian Pesanan ---" << endl;
@@ -578,8 +560,7 @@ void prosesPesanan(Pengguna* penggunaAktif, Pesanan& pesananSaatIni) {
                 try {
                     size_t levelPos = catatan.find("Level ");
                     if (levelPos != string::npos) {
-                        string levelStr = catatan.substr(levelPos + 6); // Ambil bagian angka saja
-                        // Hapus bagian ", Less Ice" atau ", Regular Ice" jika ada
+                        string levelStr = catatan.substr(levelPos + 6);
                         size_t commaPos = levelStr.find(",");
                         if (commaPos != string::npos) {
                             levelStr = levelStr.substr(0, commaPos);
@@ -595,7 +576,6 @@ void prosesPesanan(Pengguna* penggunaAktif, Pesanan& pesananSaatIni) {
                   catch (const std::out_of_range& oor) {}
             }
         }
-        // Tampilkan emoticon di rincian pesanan
         cout << item.emoticon << " " << item.nama << (catatan.empty() ? "" : " (" + catatan + ")") << " x " << kuantitas << " = Rp "
              << fixed << setprecision(0) << hargaPerItem * kuantitas << endl;
         subTotalItem += hargaPerItem * kuantitas;
@@ -658,7 +638,6 @@ void prosesPesanan(Pengguna* penggunaAktif, Pesanan& pesananSaatIni) {
         }
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-
         if (pilihanLayanan == 2) {
             pesananSaatIni.biayaAntar += 3000;
             pesananSaatIni.tipeLayananDriver = "Express";
@@ -678,8 +657,6 @@ void prosesPesanan(Pengguna* penggunaAktif, Pesanan& pesananSaatIni) {
         simulasiPengantaran(pesananSaatIni.totalHarga, pesananSaatIni.jarakAntar);
     }
 }
-// <<< AKHIR FUNGSI YANG DIPERBARUI >>>
-
 
 int main() {
     srand(time(0));
@@ -725,13 +702,14 @@ int main() {
                 } else {
                     cout << "Terima kasih atas " << rating << " bintangnya!" << endl;
                 }
-                cin.clear(); // Selalu clear dan ignore setelah cin >> int/char jika ada input berikutnya
+                cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 this_thread::sleep_for(chrono::seconds(2));
             }
         }
         
         if (pesananSaatIni.metodeAmbil == "Batal"){
+            // Bisa tambahkan logika khusus bila batal (misalnya kembalikan stok, dll.)
         }
 
         cout << "Apakah ada yang ingin Anda pesan lagi? (y/n): ";
