@@ -709,7 +709,7 @@ int main() {
         }
         
         if (pesananSaatIni.metodeAmbil == "Batal"){
-            // Bisa tambahkan logika khusus bila batal (misalnya kembalikan stok, dll.)
+            
         }
 
         cout << "Apakah ada yang ingin Anda pesan lagi? (y/n): ";
